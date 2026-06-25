@@ -1,0 +1,9 @@
+# Автоматически конвертировать окончания строк в LF для всех текстовых файлов
+* text=auto eol=lf
+
+# Явно указать LF для shell-скриптов
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Сохранить CRLF для .bat файлов (если нужны)
+*.bat text eol=crlf

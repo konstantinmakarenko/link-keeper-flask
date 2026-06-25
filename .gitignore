@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# Flask
+instance/
+.webassets-cache
+.env
+.env.local
+.env.*.local
+
+# Docker
+*.log
+*.pid
+*.pid.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Migrations (но мы их будем хранить в Git)
+# migrations/  # Раскомментировать, если не хотите хранить миграции
+
+# CI/CD
+*.tmp
