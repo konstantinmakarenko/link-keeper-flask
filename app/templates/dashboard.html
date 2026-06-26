@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Мои ссылки — Link Keeper{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-th-list text-primary"></i> Мои ссылки</h1>
+            <a href="{{ url_for('routes.add_link') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Добавить ссылку
+            </a>
+        </div>
+
+        <!-- Статистика -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="number">{{ stats.total }}</div>
+                    <div class="text-muted">Всего ссылок</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="number">{{ stats.public }}</div>
+                    <div class="text-muted">Публичных</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="number">{{ stats.favorite }}</div>
+                    <div class="text-muted">В избранном</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="number">{{ stats.tags }}</div>
+                    <div class="text-muted">Уникальных тегов</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Список ссылок -->
+        {% if links %}
+            <div class="row">
+                {% for link in links %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card link-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">
+                                    <a href="{{ url_for('routes.view_link', link_id=link.id) }}" target="_blank" class="text-decoration-none">
+                                        {{ link.title }}
+                                    </a>
+                                </h5>
+                                {% if link.is_favorite %}
+                                    <span class="text-warning"><i class="fas fa-star"></i></span>
+                                {% endif %}
+                            </div>
+                            <p class="card-text text-muted small">
+                                <i class="fas fa-link"></i> {{ link.url|truncate(40) }}
+                            </p>
+                            {% if link.description %}
+                                <p class="card-text">{{ link.description|truncate(100) }}</p>
+                            {% endif %}
+                            <div class="mb-2">
+                                {% for tag in link.tags %}
+                                    <span class="badge bg-secondary tag-badge">#{{ tag.name }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-eye"></i> {{ link.clicks }}
+                                    <span class="ms-2">
+                                        {% if link.is_public %}
+                                            <span class="badge bg-success">Публичная</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Приватная</span>
+                                        {% endif %}
+                                    </span>
+                                </small>
+                                <small class="text-muted">
+                                    {{ link.created_at|string|truncate(10, True, '') }}
+                                </small>
+                            </div>
+                            <div class="mt-2 d-flex gap-2">
+                                <form method="POST" action="{{ url_for('routes.toggle_favorite', link_id=link.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning">
+                                        {% if link.is_favorite %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ url_for('routes.delete_link', link_id=link.id) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Удалить ссылку?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> У вас пока нет ссылок.
+                <a href="{{ url_for('routes.add_link') }}">Добавьте первую!</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

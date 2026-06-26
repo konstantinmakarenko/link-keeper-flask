@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить ссылку — Link Keeper{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h3 class="mb-4"><i class="fas fa-plus-circle text-primary"></i> Добавить ссылку</h3>
+                <form method="POST" action="{{ url_for('routes.add_link') }}">
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control" + (" is-invalid" if form.title.errors else ""), placeholder="Название ссылки") }}
+                        {% for error in form.title.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.url.label(class="form-label") }}
+                        {{ form.url(class="form-control" + (" is-invalid" if form.url.errors else ""), placeholder="https://example.com") }}
+                        {% for error in form.url.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control" + (" is-invalid" if form.description.errors else ""), rows=3, placeholder="Краткое описание (опционально)") }}
+                        {% for error in form.description.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.tags.label(class="form-label") }}
+                        {{ form.tags(class="form-control" + (" is-invalid" if form.tags.errors else ""), placeholder="python, flask, docker (через запятую)") }}
+                        {% for error in form.tags.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                        <small class="text-muted">Введите теги через запятую. Теги создаются автоматически.</small>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        {{ form.is_public(class="form-check-input") }}
+                        {{ form.is_public.label(class="form-check-label") }}
+                        <small class="text-muted d-block">Публичные ссылки видны всем на главной странице.</small>
+                    </div>
+
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <a href="{{ url_for('routes.dashboard') }}"><i class="fas fa-arrow-left"></i> Вернуться в мой список</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

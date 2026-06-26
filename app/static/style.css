@@ -1,0 +1,43 @@
+/* Дополнительные стили поверх Bootstrap */
+.link-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+
+.link-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.stats-card {
+    text-align: center;
+    padding: 20px 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+}
+
+.stats-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+.stats-card .number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.tag-badge {
+    font-size: 0.7rem;
+    margin-right: 4px;
+    padding: 4px 10px;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+.btn-sm i {
+    margin-right: 2px;
+}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}О проекте — Link Keeper{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h1><i class="fas fa-info-circle text-primary"></i> О проекте</h1>
+                <hr>
+                <h4>🔗 Link Keeper — хранитель ссылок</h4>
+                <p>
+                    Это учебный проект, созданный для демонстрации навыков DevOps.
+                </p>
+                <h5>🛠 Технологический стек:</h5>
+                <ul>
+                    <li><strong>Backend:</strong> Python 3.12 + Flask</li>
+                    <li><strong>База данных:</strong> PostgreSQL 15</li>
+                    <li><strong>Кэш:</strong> Redis</li>
+                    <li><strong>Веб-сервер:</strong> Nginx (reverse-proxy + статика)</li>
+                    <li><strong>Контейнеризация:</strong> Docker + Docker Compose (3 реплики Flask)</li>
+                    <li><strong>CI/CD:</strong> Gitverse (GitLab CI совместим)</li>
+                    <li><strong>Облако:</strong> Selectel VPS</li>
+                </ul>
+                <h5>📦 Возможности:</h5>
+                <ul>
+                    <li>Регистрация и аутентификация пользователей</li>
+                    <li>Добавление, редактирование, удаление ссылок</li>
+                    <li>Тегирование ссылок</li>
+                    <li>Поиск по названию, описанию и тегам</li>
+                    <li>Публичные и приватные ссылки</li>
+                    <li>Кэширование популярных ссылок в Redis</li>
+                    <li>Балансировка нагрузки через Nginx</li>
+                </ul>
+                <h5>👨‍💻 Автор:</h5>
+                <p>Проект создан в рамках обучения DevOps.</p>
+                <a href="{{ url_for('routes.index') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> На главную
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
