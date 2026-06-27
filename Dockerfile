@@ -30,6 +30,10 @@ USER appuser
 EXPOSE 5000
 
 # Команда запуска приложения через Gunicorn
-# --workers 1 (внутри контейнера, репликация на уровне docker-compose)
-# --bind 0.0.0.0:5000 (слушаем все интерфейсы)
 CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:5000", "app:create_app()"]
+
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Меняем CMD на ENTRYPOINT
+ENTRYPOINT ["/app/entrypoint.sh"]
