@@ -3,25 +3,22 @@ from logging.config import fileConfig
 
 from flask import current_app
 from alembic import context
-from app import create_app  # <-- ДОБАВЛЯЕМ ИМПОРТ
+from app import create_app
 
 config = context.config
 fileConfig(config.config_file_name)
 logger = logging.getLogger('alembic.env')
 
-# ИСПРАВЛЯЕМ: получаем URL через контекст приложения
 def get_engine_url():
     app = create_app()
     with app.app_context():
         return current_app.config['SQLALCHEMY_DATABASE_URI']
 
-# ИСПРАВЛЯЕМ: получаем metadata через контекст приложения
 def get_metadata():
     app = create_app()
     with app.app_context():
         return current_app.extensions['migrate'].db.metadata
 
-# Устанавливаем URL для Alembic
 config.set_main_option('sqlalchemy.url', get_engine_url())
 target_metadata = get_metadata()
 

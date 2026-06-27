@@ -8,7 +8,7 @@ from flask import current_app
 from sqlalchemy import func
 from datetime import datetime, timedelta
 from . import db
-from .models import User, Link, Tag
+from .models import User, Link, Tag, link_tags  # <--- ДОБАВЛЕН link_tags
 
 
 def get_redis():

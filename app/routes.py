@@ -3,6 +3,7 @@
 Здесь логика: регистрация, вход, управление ссылками, поиск.
 """
 
+import os  # <--- ДОБАВЛЕНО
 from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,7 +25,8 @@ routes_bp = Blueprint('routes', __name__)
 def index():
     """Главная страница — показывает популярные публичные ссылки"""
     popular_links = get_cached_links(limit=10)
-    return render_template('index.html', links=popular_links)
+    hostname = os.environ.get('HOSTNAME', 'unknown')  # <--- ДОБАВЛЕНО
+    return render_template('index.html', links=popular_links, hostname=hostname)  # <--- ИЗМЕНЕНО
 
 
 @routes_bp.route('/register', methods=['GET', 'POST'])
