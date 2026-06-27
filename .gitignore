@@ -49,3 +49,10 @@ instance/
 alembic.ini
 migrations/versions/*.py
 !migrations/versions/.gitkeep
+
+.terraform/
+.terraform.lock.hcl
+*.exe
+terraform.tfvars
+terraform.tfstate
+*.backup

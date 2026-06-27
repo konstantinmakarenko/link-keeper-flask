@@ -1,0 +1,6 @@
+account_id      = "123456"
+service_user    = "my-service-user"
+service_password = "my-secret-password"
+project_id      = "11111111111111111111111111111111"
+public_ssh_key  = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ..."
+region          = "ru-9"
