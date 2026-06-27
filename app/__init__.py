@@ -6,7 +6,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, UserMixin
 from flask_session import Session
 from flask_migrate import Migrate
 from redis import Redis
@@ -19,7 +19,14 @@ load_dotenv()
 db = SQLAlchemy()
 login_manager = LoginManager()
 session = Session()
-migrate = Migrate()  # <-- Добавляем для Alembic
+migrate = Migrate()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Загружает пользователя по ID для Flask-Login"""
+    from .models import User
+    return User.query.get(int(user_id))
 
 
 def create_app():
@@ -42,7 +49,7 @@ def create_app():
     # --- Инициализация расширений ---
     db.init_app(app)
     login_manager.init_app(app)
-    login_manager.login_view = 'routes.login'  # Куда перенаправлять неавторизованных
+    login_manager.login_view = 'routes.login'
     login_manager.login_message = 'Пожалуйста, войдите для доступа к этой странице'
 
     session.init_app(app)
