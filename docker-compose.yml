@@ -1,4 +1,20 @@
 services:
+  # ====== 0. Миграции БД (запускается один раз при старте) ======
+  migrate:
+    build: .
+    image: link-keeper-flask:latest
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: "no"  # Запускается один раз и завершается
+    command: >
+      sh -c "alembic upgrade head"
   # ====== 1. Flask-приложение (3 реплики) ======
   flask-app:
     build: .

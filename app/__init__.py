@@ -8,6 +8,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_session import Session
+from flask_migrate import Migrate
 from redis import Redis
 from dotenv import load_dotenv
 
@@ -18,6 +19,8 @@ load_dotenv()
 db = SQLAlchemy()
 login_manager = LoginManager()
 session = Session()
+migrate = Migrate()  # <-- Добавляем для Alembic
+
 
 def create_app():
     """Фабрика приложения — создаёт и настраивает Flask-приложение"""
@@ -43,6 +46,9 @@ def create_app():
     login_manager.login_message = 'Пожалуйста, войдите для доступа к этой странице'
 
     session.init_app(app)
+
+    # Инициализация миграций (Alembic)
+    migrate.init_app(app, db)
 
     # --- Регистрация Blueprint ---
     from .routes import routes_bp

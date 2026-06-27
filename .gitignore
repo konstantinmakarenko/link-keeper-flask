@@ -44,3 +44,8 @@ instance/
 
 # CI/CD
 *.tmp
+
+# Alembic
+alembic.ini
+migrations/versions/*.py
+!migrations/versions/.gitkeep

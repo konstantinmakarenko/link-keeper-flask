@@ -1,0 +1,28 @@
+stages:
+  - build
+  - push
+
+variables:
+  DOCKER_IMAGE: $CI_REGISTRY_IMAGE:latest
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $DOCKER_IMAGE .
+    - docker tag $DOCKER_IMAGE docker.io/$DOCKER_USERNAME/link-keeper-flask:latest
+  only:
+    - master
+
+push_to_dockerhub:
+  stage: push
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker push docker.io/$DOCKER_USERNAME/link-keeper-flask:latest
+  only:
+    - master
