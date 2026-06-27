@@ -55,4 +55,5 @@ migrations/versions/*.py
 *.exe
 terraform.tfvars
 terraform.tfstate
+.terraform.tfstate*
 *.backup
